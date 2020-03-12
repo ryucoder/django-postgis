@@ -9,24 +9,6 @@ ENV PYTHONUNBUFFERED 1
 # set work directory
 WORKDIR /usr/src/app
 
-# # installing dependancies
-# RUN apk add sqlite sqlite-dev
-
-# RUN apk update \
-#   # psycopg2 dependencies
-#   && apk add --virtual build-deps gcc g++ python3-dev musl-dev \
-#   && apk add postgresql-dev \
-#   # Pillow dependencies
-#   && apk add jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-dev tcl-dev \
-#   # CFFI dependencies
-#   && apk add libffi-dev py-cffi \
-#   # Translations dependencies
-#   && apk add gettext \
-#   # https://docs.djangoproject.com/en/dev/ref/django-admin/#dbshell
-#   && apk add postgresql-client 
-
-
-
 # ## Build Postgis and dependencies
 # postgresql-client is required by psql
 # postgresql-dev musl-dev gcc are required by psycopg
