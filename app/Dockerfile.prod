@@ -3,7 +3,7 @@
 ###########
 
 # pull official base image
-FROM python:3.8.0-alpine as builder
+FROM python:3.8-alpine3.11 as builder
 
 # set work directory
 WORKDIR /usr/src/app
@@ -13,8 +13,24 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # install psycopg2 dependencies
-RUN apk update \
-    && apk add postgresql-dev gcc python3-dev musl-dev
+# TODO: optimize installation by using --virtual
+RUN apk update && apk upgrade \
+    && apk add postgresql-client \
+        postgresql-dev \
+        musl-dev \
+        gcc \
+        libxml2-dev \
+        libxslt-dev \
+        linux-headers \
+        gettext-dev \
+    && apk add --repository http://dl-cdn.alpinelinux.org/alpine/edge/main \
+        libcrypto1.1 \
+    && apk add --repository http://dl-cdn.alpinelinux.org/alpine/edge/testing \
+        gdal-dev \
+        geos-dev \
+    && pip install pipenv
+
+
 
 # lint
 RUN pip install --upgrade pip
